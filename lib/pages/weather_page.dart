@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:minimal_weather_app/models/weather_model.dart';
 import 'package:minimal_weather_app/services/weather_service.dart';
 
@@ -11,7 +12,7 @@ class WeatherPage extends StatefulWidget {
 
 class _WeatherPageState extends State<WeatherPage> {
   // api key
-  final _weatherService = WeatherService('e1760d40b2308c406d6ed93eac9b7916');
+  final _weatherService = WeatherService('bd620c384bf8606362e2a32cd7644178');
   Weather? _weather;
 
   // fetch weather
@@ -32,26 +33,81 @@ class _WeatherPageState extends State<WeatherPage> {
       print(e);
     }
   }
-  
+
   // init state
   @override
   void initState() {
     super.initState();
+
+    // fetch weaather on startup
+    _fetchWeather();
   }
 
+  // weather animations
+  String getWeatherAnimation(String? mainCondition) {
+    if (mainCondition == null) return 'lib/assets/sunny.json';
+
+    switch (mainCondition.toLowerCase()) {
+      case 'clouds':
+        return 'lib/assets/cloudy.json';
+      case 'mist':
+      case 'fog':
+        return 'lib/assets/cloudy.json';
+      case 'shower rain':
+        return 'lib/assets/rainy.json';
+      case 'thunderstorm':
+        return 'lib/assets/thunder.json';
+      case 'clear':
+        return 'lib/assets/sunny.json';
+      default:
+        return 'lib/assets/sunny.json';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
-    body: Column(
-      children: [
-        // city name
-        Text(_weather?.cityName ?? 'city...'),
+    return Scaffold(
+      backgroundColor: Colors.black26,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // city name
+            Text(
+              _weather?.cityName ?? 'Loading city...',
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 24,
+                color: Colors.white,
+                letterSpacing: 2.0,
+              ),
+            ),
 
-        // temperature
-        Text(${_weather?.temperature.round()}'C')
-      ],
-    ),
-   );
+            // animation
+            Lottie.asset(getWeatherAnimation(_weather?.mainCondition)),
+
+            // temperature
+            Text(
+              '${_weather?.temperature.round()}\u00B0C',
+              style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 24,
+                  letterSpacing: 1.5,
+                  color: Colors.white),
+            ),
+
+            // weather condition
+            Text(
+              _weather?.mainCondition ?? "",
+              style: TextStyle(
+                  fontSize: 22,
+                  fontFamily: 'Roboto',
+                  color: Colors.white,
+                  letterSpacing: 1.0),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
