@@ -1,16 +1,20 @@
-# minimal_weather_app
+# Weather App
 
-A new Flutter project.
+A simple weather app built with Flutter that fetches live weather forecasts based on the user's location using the OpenWeather API. The app provides real-time data on the temperature and city name.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Fetch weather data based on the user's current location.
+- Display the current temperature in Celsius (metric system).
+- Clean and intuitive UI.
 
-A few resources to get you started if this is your first Flutter project:
+## Requirements
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Flutter**: Ensure you have Flutter installed on your machine.
+- **Dart**: Flutter uses Dart, so Dart should be installed along with Flutter.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Clone the repository
+
+```bash
+git clone https://github.com/Alviura/minimal_weather_app.git
+cd minimal_weather_app
